@@ -71,10 +71,7 @@ namespace ArcLight
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.E))
-            {
-                
-            }
+            
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -88,10 +85,7 @@ namespace ArcLight
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            if (GameState == GameState.Start)
-            {
-
-            }
+            
 
             base.Draw(gameTime);
         }
