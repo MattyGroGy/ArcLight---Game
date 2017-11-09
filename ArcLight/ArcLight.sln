@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcLight", "ArcLight\ArcLight.csproj", "{60C74890-B59B-4EC9-A7E1-0689F78B567C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60C74890-B59B-4EC9-A7E1-0689F78B567C}.Debug|x86.ActiveCfg = Debug|x86
+		{60C74890-B59B-4EC9-A7E1-0689F78B567C}.Debug|x86.Build.0 = Debug|x86
+		{60C74890-B59B-4EC9-A7E1-0689F78B567C}.Release|x86.ActiveCfg = Release|x86
+		{60C74890-B59B-4EC9-A7E1-0689F78B567C}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB0ED99F-F92B-4D4C-9D9D-18B8BD289367}
+	EndGlobalSection
+EndGlobal
