@@ -5,17 +5,17 @@ using Microsoft.Xna.Framework.Input;
 namespace ArcLight
 {
 
-    public enum GameState
-    {
-        Start,
-        Login,
-        Menu,
-        CharSel,
-        SerSel,
-        CharCrea,
-        InGame,
-        Loading
-    }
+    //public enum GameState
+    //{
+    //    Start,
+    //    Login,
+    //    Menu,
+    //    CharSel,
+    //    SerSel,
+    //    CharCrea,
+    //    InGame,
+    //    Loading
+    //}
 
     
 
@@ -49,8 +49,7 @@ namespace ArcLight
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            ScreenManager.ScreenManager.Instance.LoadContent(Content);
         }
 
         /// <summary>
