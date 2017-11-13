@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using ArcLight.ScreenManager;
 
-public class GameScreenBase
+public class GameScreenBase : ScreenManager
 {
     protected ContentManager Content;
 

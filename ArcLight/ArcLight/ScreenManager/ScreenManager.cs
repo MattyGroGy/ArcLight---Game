@@ -13,6 +13,8 @@ namespace ArcLight.ScreenManager
 {
     public class ScreenManager
     {
+        public Vector2 Dimensions { get; private set; }
+
         private static ScreenManager instance;
 
         public static ScreenManager Instance
@@ -24,6 +26,11 @@ namespace ArcLight.ScreenManager
 
                 return instance;
             }
+        }
+
+        public ScreenManager()
+        {
+            Dimensions = new Vector2(1920, 1080);   
         }
 
         public void LoadContent(ContentManager Content)

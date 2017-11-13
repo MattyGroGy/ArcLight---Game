@@ -38,6 +38,9 @@ namespace ArcLight
         /// </summary>
         protected override void Initialize()
         {
+            graphics.PreferredBackBufferHeight = (int)ScreenManager.ScreenManager.Instance.Dimensions.Y;
+            graphics.PreferredBackBufferWidth = (int)ScreenManager.ScreenManager.Instance.Dimensions.X;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -47,7 +50,6 @@ namespace ArcLight
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ScreenManager.ScreenManager.Instance.LoadContent(Content);
         }
@@ -58,7 +60,7 @@ namespace ArcLight
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            ScreenManager.ScreenManager.Instance.UnloadContent();
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace ArcLight
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
+            ScreenManager.ScreenManager.Instance.Update(gameTime);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -83,7 +85,7 @@ namespace ArcLight
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            ScreenManager.ScreenManager.Instance.Draw(spriteBatch);
             
 
             base.Draw(gameTime);
