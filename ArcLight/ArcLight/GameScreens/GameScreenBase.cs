@@ -4,13 +4,24 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using ArcLight.ScreenManager;
 
-public class GameScreenBase : ScreenManager
+public class GameScreenBase
 {
-    protected ContentManager Content;
+    protected ContentManager content;
 
+    public virtual void LoadContent()
+    {
+        content = new ContentManager(
+            ScreenManager.Instance.Content.ServiceProvider, "Content");
+    }
+
+    public virtual void UnloadContent()
+    {
+        content.Unload();
+    }
 
 	public virtual void Update(GameTime gameTime)
 	{
+
 	}
 
     public virtual void Draw(SpriteBatch spriteBatch)
@@ -18,11 +29,5 @@ public class GameScreenBase : ScreenManager
 
     }
 
-    public virtual void LoadContent()
-    {
-    }
-
-    public virtual void UnloadContent()
-    {
-    }
+  
 }

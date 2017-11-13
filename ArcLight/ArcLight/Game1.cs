@@ -41,6 +41,7 @@ namespace ArcLight
             graphics.PreferredBackBufferHeight = (int)ScreenManager.ScreenManager.Instance.Dimensions.Y;
             graphics.PreferredBackBufferWidth = (int)ScreenManager.ScreenManager.Instance.Dimensions.X;
             graphics.ApplyChanges();
+            graphics.ToggleFullScreen();
             base.Initialize();
         }
 
@@ -73,8 +74,7 @@ namespace ArcLight
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             ScreenManager.ScreenManager.Instance.Update(gameTime);
-            // TODO: Add your update logic here
-
+            
             base.Update(gameTime);
         }
 
