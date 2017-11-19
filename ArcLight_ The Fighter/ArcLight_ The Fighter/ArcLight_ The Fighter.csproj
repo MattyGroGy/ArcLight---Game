@@ -56,8 +56,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="COPY.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="GameScreens\MainMenuSN.cs" />
+    <Compile Include="GameScreens\GameScreen.cs" />
+    <Compile Include="GameScreens\GameScreenManager.cs" />
+    <Compile Include="GameScreens\MainMenu.cs" />
     <Compile Include="Helpers\ButtonHandler.cs" />
     <Compile Include="Helpers\MouseClickHandler.cs" />
     <Compile Include="Program.cs" />
@@ -76,12 +79,6 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConsoleTester\ConsoleTester.csproj">
-      <Project>{b86f8bd0-0d73-47dd-aa28-5b52940dc9f1}</Project>
-      <Name>ConsoleTester</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

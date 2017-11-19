@@ -145,3 +145,9 @@
 /processorParam:TextureFormat=Color
 /build:Buttons/ButtonLogout0.png
 
+#begin menuFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:menuFont.spritefont
+
