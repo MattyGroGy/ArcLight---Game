@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcLight__The_Fighter.GameScreens;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -11,6 +12,10 @@ namespace ArcLight__The_Fighter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        int SelectedButton = 0;
+
+        private Texture2D background;
 
         public Game1()
         {
@@ -27,31 +32,50 @@ namespace ArcLight__The_Fighter
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+
+            MainMenuSN.LoadMM(Content);
+            
+
+            
         }
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                if (SelectedButton == 0)
+                {
+                    SelectedButton = 3;
+                }
+                else
+                {
+                    SelectedButton -= SelectedButton;
+                }
+            }
 
-            // TODO: Add your update logic here
-
+           // spriteBatch.DrawString()
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
 
+            spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
+
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
