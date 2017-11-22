@@ -9,7 +9,9 @@ namespace ArcLight__The_Fighter.GameScreens
 {
     public abstract class GameScreen
     {
+
         
+
 
         public virtual void LoadContent()
         {
@@ -33,6 +35,8 @@ namespace ArcLight__The_Fighter.GameScreens
 
         }
 
+
+
         public GameScreenManager ScreenManager
         {
             get { return screenManager; }
@@ -40,6 +44,7 @@ namespace ArcLight__The_Fighter.GameScreens
         }
 
         GameScreenManager screenManager;
+
 
 
         public void ExitScreen()

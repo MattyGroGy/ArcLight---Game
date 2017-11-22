@@ -13,10 +13,11 @@ namespace ArcLight__The_Fighter.GameScreens
     {
 
         SpriteBatch spriteBatch;
-        SpriteFont font;
+       // SpriteFont font;
        // Texture2D blankTexture;
 
         List<GameScreen> screens = new List<GameScreen>();
+        List<GameScreen> screensToUpdate = new List<GameScreen>();
 
         bool isInitialized;
 
@@ -27,15 +28,16 @@ namespace ArcLight__The_Fighter.GameScreens
             get { return spriteBatch; }
         }
 
-        public SpriteFont Font
-        {
-            get { return font; }
-        }
+       // public SpriteFont Font
+       // {
+       //     get { return font; }
+       // }
 
         public GameScreenManager(Game game) : base(game)
         {
            
         }
+
 
         public override void Initialize()
         {
@@ -50,7 +52,7 @@ namespace ArcLight__The_Fighter.GameScreens
             ContentManager content = Game.Content;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = content.Load<SpriteFont>("menufont");
+            //font = content.Load<SpriteFont>("menufont");
             //blankTexture = content.Load<Texture2D>("blank");
 
             
@@ -71,12 +73,16 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            
+            foreach (GameScreen screen in screens)
+                screen.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            
+            foreach (GameScreen screen in screens)
+            {
+                screen.Draw(gameTime);
+            }
         }
 
         public void AddScreen(GameScreen screen, PlayerIndex? controllingPlayer)
