@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcLight_ The Fighter", "ArcLight_ The Fighter\ArcLight_ The Fighter.csproj", "{93F09D74-CAA4-454F-AB9C-C64B37C7CD7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcLightServer", "ArcLightServer\ArcLightServer.csproj", "{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network", "Lidgren.Network\Lidgren.Network.csproj", "{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGame-Textbox", "MonoGame-Textbox\MonoGame-Textbox.csproj", "{60845196-31B8-487A-8F25-83EAC47DA83D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +25,30 @@ Global
 		{93F09D74-CAA4-454F-AB9C-C64B37C7CD7C}.Release|Any CPU.ActiveCfg = Release|x86
 		{93F09D74-CAA4-454F-AB9C-C64B37C7CD7C}.Release|x86.ActiveCfg = Release|x86
 		{93F09D74-CAA4-454F-AB9C-C64B37C7CD7C}.Release|x86.Build.0 = Release|x86
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Debug|x86.Build.0 = Debug|Any CPU
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Release|x86.ActiveCfg = Release|Any CPU
+		{3A4415F1-FAC5-4E59-8CEC-CD901CDE22B7}.Release|x86.Build.0 = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|x86.Build.0 = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|x86.ActiveCfg = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|x86.Build.0 = Release|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Debug|x86.Build.0 = Debug|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Release|x86.ActiveCfg = Release|Any CPU
+		{60845196-31B8-487A-8F25-83EAC47DA83D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

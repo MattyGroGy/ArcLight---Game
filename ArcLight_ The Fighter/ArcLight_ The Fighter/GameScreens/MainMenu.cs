@@ -49,7 +49,7 @@ namespace ArcLight__The_Fighter.GameScreens
             content = new ContentManager(screenManager.Game.Content.ServiceProvider, "Content" );
 
             ButtonClick = content.Load<SoundEffect>("Sounds/Buttons/ButtonClick");
-            Logo = content.Load<Texture2D>("MenuScreen/logo");
+            Logo = content.Load<Texture2D>("MenuScreen/Logo");
             MainMenuFont = content.Load<SpriteFont>("menuFont");
             song = content.Load<Song>("Sounds/Music/MainMenu");
             Pozadi = content.Load<Texture2D>("MenuScreen/Pozadi");
@@ -57,8 +57,6 @@ namespace ArcLight__The_Fighter.GameScreens
             buttonLogout = content.Load<Texture2D>("Buttons/ButtonLogout0");
             buttonOptions = content.Load<Texture2D>("Buttons/ButtonOptions0");
             buttonStart = content.Load<Texture2D>("Buttons/ButtonStart0");
-
-            MediaPlayer.Play(song);
 
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
 
@@ -82,14 +80,31 @@ namespace ArcLight__The_Fighter.GameScreens
         public override void Update(GameTime gameTime)
         {
             SpriteBatch spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
-            spriteBatch.Begin();
+            
             if (MouseClickHandler.MouseButtonClick(ButtonStartPos) == true)
             {
                 ButtonClick.Play();
                 Thread.Sleep(3000);
-                Environment.Exit(0);
+                screenManager.Game.Exit();
             }
-            spriteBatch.End();
+            else if (MouseClickHandler.MouseButtonClick(ButtonOptionsPos) == true)
+            {
+                ButtonClick.Play();
+                Thread.Sleep(3000);
+                screenManager.Game.Exit();
+            }
+            else if (MouseClickHandler.MouseButtonClick(ButtonLogoutPos) == true)
+            {
+                ButtonClick.Play();
+                Thread.Sleep(3000);
+                screenManager.Game.Exit();
+            }
+            else if (MouseClickHandler.MouseButtonClick(ButtonExitPos) == true)
+            {
+                ButtonClick.Play();
+                screenManager.Game.Exit();
+            }
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -101,7 +116,7 @@ namespace ArcLight__The_Fighter.GameScreens
             ButtonOptionsPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (buttonOptions.Width / 4), 500, buttonOptions.Width / 2, buttonOptions.Height / 2);
             ButtonLogoutPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (buttonLogout.Width / 4), 600, buttonLogout.Width / 2, buttonLogout.Height / 2);
             ButtonExitPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (buttonExit.Width / 4), 700, buttonExit.Width / 2, buttonExit.Height / 2);
-            LogoPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - ((Logo.Width) / 2), 100, Logo.Width*5, Logo.Height*5);
+            LogoPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (Logo.Width / 2), 100, Logo.Width, Logo.Height);
 
             SpriteBatch spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
             Viewport viewport = screenManager.GraphicsDevice.Viewport;

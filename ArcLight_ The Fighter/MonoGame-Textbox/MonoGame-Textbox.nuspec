@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Unterrainer Informatik OG Team</authors>
+    <owners>Public Domain</owners>
+    <licenseUrl>http://unlicense.org</licenseUrl>
+	<iconUrl>https://github.com/UnterrainerInformatik/Monogame-Textbox/raw/master/icon.png</iconUrl>
+    <projectUrl>https://github.com/UnterrainerInformatik/MonoGame-Textbox</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<developmentDependency>true</developmentDependency>
+    <description>An editable, multi-language, event-driven textbox for MonoGame that supports selection and cut/copy/paste.
+	  Just import this nuget package. It is a PCL so you should be able to use it in any MG project.
+	  Look at the git-repo for the usage since the repo there contains a test-project.</description>
+    <summary>
+      An editable, multi-language, event-driven textbox for MonoGame that supports selection and cut/copy/paste.
+    </summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <language>en-US</language>
+    <tags>MonoGame textbox text input chat event driven cursor copy cut paste</tags>
+  </metadata>
+</package>

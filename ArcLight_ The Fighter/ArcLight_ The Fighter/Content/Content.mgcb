@@ -25,18 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:MenuScreen/Pozadi.png
 
-#begin MenuScreen/logo.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:MenuScreen/logo.png
-
 #begin Sounds/Buttons/ButtonClick.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -102,4 +90,28 @@
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
 /build:menuFont.spritefont
+
+#begin MenuScreen/Logo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MenuScreen/Logo.png
+
+#begin Buttons/ButtonLogin0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Buttons/ButtonLogin0.png
 

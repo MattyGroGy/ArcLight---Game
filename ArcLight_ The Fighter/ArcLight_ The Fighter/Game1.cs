@@ -15,7 +15,7 @@ namespace ArcLight__The_Fighter
     public class Game1 : Game
     {
         public static GraphicsDeviceManager graphics;
-        GraphicsDevice graphicsDevice;
+        public static GraphicsDevice graphicsDevice;
         private GameScreenManager screenManager;
 
 
@@ -28,14 +28,15 @@ namespace ArcLight__The_Fighter
             graphics.ApplyChanges();
             //graphics.ToggleFullScreen();
             this.IsMouseVisible = true;
+            graphicsDevice = this.GraphicsDevice;
             game = this;
            // spriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = "Content";
             
             screenManager = new GameScreenManager(this);
             Components.Add(screenManager);
-
-            screenManager.AddScreen(new MainMenu(), null);
+            screenManager.AddScreen(new LoginScreen(), null);
+         //   screenManager.AddScreen(new MainMenu(), null);
          //   screenManager.AddScreen(new TestScreen(), null);
 
 
