@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using ArcLight__The_Fighter.Helpers;
 using System.Threading;
 using MonoGame_Textbox;
+using Lidgren.Network;
 
 namespace ArcLight__The_Fighter.GameScreens
 {
@@ -25,13 +26,15 @@ namespace ArcLight__The_Fighter.GameScreens
         private TextBox UsernameInput;
 
         private Rectangle LogoPos;
-        private Rectangle PasswordInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 476, 700, 64);
-        private Rectangle UsernameInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 544, 700, 64);
+        private Rectangle PasswordInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 544, 700, 64);
+        private Rectangle UsernameInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 476, 700, 64);
         private Rectangle ButtonExitPos;
         private Rectangle ButtonLoginPos;
 
         private Texture2D Pozadi;
         private Texture2D Logo;
+
+        private Texture2D TextBoxPozadi;
 
         private Texture2D buttonExit;
         private Texture2D buttonLogin;
@@ -51,6 +54,7 @@ namespace ArcLight__The_Fighter.GameScreens
             screenManager = new GameScreenManager(Game1.game);
             content = new ContentManager(screenManager.Game.Content.ServiceProvider, "Content" );
 
+            TextBoxPozadi = content.Load<Texture2D>("textBox");
             buttonLogin = content.Load<Texture2D>("buttons/ButtonLogin0");
             buttonExit = content.Load<Texture2D>("buttons/ButtonExit0");
             ButtonClick = content.Load<SoundEffect>("Sounds/Buttons/ButtonClick");
@@ -64,8 +68,8 @@ namespace ArcLight__The_Fighter.GameScreens
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
 
 
-            UsernameInput = new TextBox(UsernameInputPos, 32, "kebab", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
-            PasswordInput = new TextBox(PasswordInputPos, 32, "password", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
+            UsernameInput = new TextBox(UsernameInputPos, 32, "Username", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
+            PasswordInput = new TextBox(PasswordInputPos, 32, "Password", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
         }
 
       
@@ -107,7 +111,13 @@ namespace ArcLight__The_Fighter.GameScreens
             if (MouseClickHandler.MouseButtonClick(ButtonLoginPos) == true)
             {
                 ButtonClick.Play();
-                Thread.Sleep(3000);
+                var config = new NetPeerConfiguration("Login");
+                NetClient client = new NetClient(config);
+
+                string Password = PasswordInput.Text.String;
+                NetOutgoingMessage passwordMessage = client.CreateMessage(Password);
+                client.Connect("localhost", 18051);
+                client.SendMessage(passwordMessage, NetDeliveryMethod.ReliableOrdered);
             }
            
             else if (MouseClickHandler.MouseButtonClick(ButtonExitPos) == true)
@@ -140,7 +150,6 @@ namespace ArcLight__The_Fighter.GameScreens
         {
             PasswordInput.Active = false;
 
-            string Password = PasswordInput.Text.String;
         }
 
         public override void Draw(GameTime gameTime)
@@ -161,9 +170,10 @@ namespace ArcLight__The_Fighter.GameScreens
             spriteBatch.Begin();
 
             spriteBatch.Draw(Pozadi, fullscreen,Color.White);
-
             PasswordInput.Draw(spriteBatch);
             UsernameInput.Draw(spriteBatch);
+            spriteBatch.Draw(TextBoxPozadi, UsernameInputPos, Color.White);
+            spriteBatch.Draw(TextBoxPozadi, PasswordInputPos, Color.White);
             spriteBatch.Draw(Logo, LogoPos, Color.White);
             spriteBatch.Draw(buttonLogin, ButtonLoginPos, Color.White);
             spriteBatch.Draw(buttonExit, ButtonExitPos, Color.White);

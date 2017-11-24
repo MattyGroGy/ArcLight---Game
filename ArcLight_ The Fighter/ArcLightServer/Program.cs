@@ -10,16 +10,11 @@ namespace ArcLightServer
 {
     class Program
     {
-        List<NetPeer> clients;
-        NetServer server;
 
-        static void Main()
+        public static void Main()
         {
-        }
-
-
-        public void StartLoginServer()
-        {
+            List<NetPeer> clients;
+            NetServer server;
 
             var config = new NetPeerConfiguration("Login") { Port = 18051 };
             server = new NetServer(config);
@@ -35,13 +30,22 @@ namespace ArcLightServer
             }
             clients = new List<NetPeer>();
 
+            while (true)
+            {
+                ReadMessages(server,clients);
+            }
+
         }
 
-        public void ReadMessages()
+
+        public static void ReadMessages(NetServer server, List<NetPeer> clients)
         {
             NetIncomingMessage message;
-            while ((message = server.ReadMessage()) != null)
+            while(true)
             {
+
+                while ((message = server.ReadMessage()) != null)
+                {
                 switch (message.MessageType)
                 {
                     case NetIncomingMessageType.Data:
@@ -70,6 +74,8 @@ namespace ArcLightServer
                         break;
                 }
                 server.Recycle(message);
+
+                }
             }
         }
     }
