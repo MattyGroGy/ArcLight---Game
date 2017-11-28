@@ -17,9 +17,15 @@ namespace ArcLight__The_Fighter.GameScreens
 {
     class LoginScreen : GameScreen
     {
+        NetClient client;
+
         ContentManager content;
         GameScreenManager screenManager;
 
+        public static bool ShowError_ = false;
+
+        public static int ErrorTime = 1500;
+        
         private SpriteFont MainMenuFont;
 
         private TextBox PasswordInput;
@@ -28,6 +34,8 @@ namespace ArcLight__The_Fighter.GameScreens
         private Rectangle LogoPos;
         private Rectangle PasswordInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 544, 700, 64);
         private Rectangle UsernameInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 476, 700, 64);
+        private Rectangle PasswordInputPosBG = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 544, 500, 64);
+        private Rectangle UsernameInputPosBG = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - 64, 476, 500, 64);
         private Rectangle ButtonExitPos;
         private Rectangle ButtonLoginPos;
 
@@ -43,10 +51,20 @@ namespace ArcLight__The_Fighter.GameScreens
 
         private Song song;
 
+        string ServerMSG;
+        public static string ErrorText;
 
         public LoginScreen()
         {
             KeyboardInput.Initialize(Game1.game, 500f, 20);
+
+            NetPeerConfiguration config = new NetPeerConfiguration("Login");
+            config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+
+            client = new NetClient(config);
+            client.Start();
+
+            client.Connect("localhost", 18052);
         }
 
         public override void LoadContent()
@@ -67,9 +85,8 @@ namespace ArcLight__The_Fighter.GameScreens
 
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
 
-
-            UsernameInput = new TextBox(UsernameInputPos, 32, "Username", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
-            PasswordInput = new TextBox(PasswordInputPos, 32, "Password", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
+            UsernameInput = new TextBox(UsernameInputPos, 28, "Username", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
+            PasswordInput = new TextBox(PasswordInputPos, 28, "Password", screenManager.GraphicsDevice, MainMenuFont, Color.WhiteSmoke, Color.White,1);
         }
 
       
@@ -92,13 +109,12 @@ namespace ArcLight__The_Fighter.GameScreens
 
             KeyboardInput.Update();
 
-            SpriteBatch spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
 
             if (MouseClickHandler.MouseButtonClick(UsernameInputPos) == true && UsernameInput.Active == false)
             {
-                UsernameInput.Active = true;
-                PasswordInput.Active = false;
-                
+               UsernameInput.Active = true;
+               PasswordInput.Active = false;
+
             }
 
             if (MouseClickHandler.MouseButtonClick(PasswordInputPos) == true && PasswordInput.Active == false)
@@ -110,24 +126,41 @@ namespace ArcLight__The_Fighter.GameScreens
 
             if (MouseClickHandler.MouseButtonClick(ButtonLoginPos) == true)
             {
-                ButtonClick.Play();
-                var config = new NetPeerConfiguration("Login");
-                NetClient client = new NetClient(config);
 
-                string Password = PasswordInput.Text.String;
-                NetOutgoingMessage passwordMessage = client.CreateMessage(Password);
-                client.Connect("localhost", 18051);
-                client.SendMessage(passwordMessage, NetDeliveryMethod.ReliableOrdered);
+                NetOutgoingMessage Username = client.CreateMessage();
+                NetOutgoingMessage Password = client.CreateMessage();
+                Password.Write(PasswordInput.Text.String);
+                Username.Write(UsernameInput.Text.String);
+                client.SendMessage(Password, NetDeliveryMethod.ReliableOrdered);
+                client.SendMessage(Username, NetDeliveryMethod.ReliableOrdered);
+                screenManager.AddScreen(new LoadingScreen(), null);
+                screenManager.RemoveScreen(new LoginScreen());
+                ButtonClick.Play();
+                Thread.Sleep(100);
+
             }
-           
+
             else if (MouseClickHandler.MouseButtonClick(ButtonExitPos) == true)
             {
                 ButtonClick.Play();
                 screenManager.Game.Exit();
             }
 
-            
 
+            NetIncomingMessage inc;
+            while ((inc = client.ReadMessage()) != null)
+            {
+                switch (inc.MessageType)
+                {
+                    case NetIncomingMessageType.DiscoveryResponse:
+                        ServerMSG = ("Found server at " + inc.SenderEndPoint + " name: " + inc.ReadString());
+                        Console.WriteLine(ServerMSG);
+                        break;
+
+                }
+
+            }
+            
             UsernameInput.Area = UsernameInputPos;
             PasswordInput.Area = PasswordInputPos;
 
@@ -138,7 +171,6 @@ namespace ArcLight__The_Fighter.GameScreens
             UsernameInput.EnterDown += UsernameInput_EnterDown;
 
         }
-
         private void UsernameInput_EnterDown(object sender, EventArgs e)
         {
             UsernameInput.Active = false;
@@ -159,8 +191,6 @@ namespace ArcLight__The_Fighter.GameScreens
 
             ButtonLoginPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (buttonLogin.Width / 4) + 742, 476, buttonLogin.Width / 2, buttonLogin.Height / 2);
             ButtonExitPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (buttonExit.Width / 4) + 742, 544, buttonExit.Width / 2, buttonExit.Height / 2);
-           // UsernameInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - (buttonExit.Width / 4), 476, 700, 64);
-           // PasswordInputPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - 16 - (buttonExit.Width / 4), 544, 700, 64);
             LogoPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (Logo.Width / 2), 100, Logo.Width, Logo.Height);
 
             SpriteBatch spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
@@ -168,22 +198,32 @@ namespace ArcLight__The_Fighter.GameScreens
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             spriteBatch.Begin();
-
+            if (ShowError_ == true && ErrorTime > 0)
+            {
+                ErrorTime--;
+                spriteBatch.DrawString(MainMenuFont, ErrorText, new Vector2(900, viewport.Width / 2 - 50), Color.Red);
+            }
             spriteBatch.Draw(Pozadi, fullscreen,Color.White);
+            spriteBatch.Draw(TextBoxPozadi, UsernameInputPosBG, Color.White);
+            spriteBatch.Draw(TextBoxPozadi, PasswordInputPosBG, Color.White);
             PasswordInput.Draw(spriteBatch);
             UsernameInput.Draw(spriteBatch);
-            spriteBatch.Draw(TextBoxPozadi, UsernameInputPos, Color.White);
-            spriteBatch.Draw(TextBoxPozadi, PasswordInputPos, Color.White);
+            
             spriteBatch.Draw(Logo, LogoPos, Color.White);
             spriteBatch.Draw(buttonLogin, ButtonLoginPos, Color.White);
             spriteBatch.Draw(buttonExit, ButtonExitPos, Color.White);
-
+            
             spriteBatch.End();
             
             
 
         }
 
+        public static void ShowError(string text)
+        {
+            ShowError_ = true;
+            ErrorText = text;
+        }
 
     }
 }

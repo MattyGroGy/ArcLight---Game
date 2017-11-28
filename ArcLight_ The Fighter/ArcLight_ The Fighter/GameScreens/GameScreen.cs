@@ -15,24 +15,24 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public virtual void LoadContent()
         {
-
+            Console.WriteLine("Content Loaded!");
         }
 
         public virtual void UnloadContent()
         {
-
+            Console.WriteLine("Content UnLoaded!");
         }
 
         
 
         public virtual void Update(GameTime gameTime)
         {
-           
+            Console.WriteLine("Content Updated!");
         }
 
         public virtual void Draw(GameTime gameTime)
         {
-
+            Console.WriteLine("Content Drawed!");
         }
 
 

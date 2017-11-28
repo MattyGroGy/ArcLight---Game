@@ -17,7 +17,7 @@ namespace ArcLight__The_Fighter
         public static GraphicsDeviceManager graphics;
         public static GraphicsDevice graphicsDevice;
         private GameScreenManager screenManager;
-
+        public static MouseState defaultMouseState;
 
         public static Game game;
         public Game1()
@@ -32,15 +32,15 @@ namespace ArcLight__The_Fighter
             game = this;
            // spriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = "Content";
-            
+            defaultMouseState = Mouse.GetState();
             screenManager = new GameScreenManager(this);
             Components.Add(screenManager);
+           // screenManager.AddScreen(new MainMenu(), null);
             screenManager.AddScreen(new LoginScreen(), null);
-         //   screenManager.AddScreen(new MainMenu(), null);
-         //   screenManager.AddScreen(new TestScreen(), null);
+           //   screenManager.AddScreen(new TestScreen(), null);
 
 
-            
+
         }
 
         

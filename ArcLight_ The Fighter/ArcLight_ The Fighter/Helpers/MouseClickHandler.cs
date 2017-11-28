@@ -12,12 +12,12 @@ namespace ArcLight__The_Fighter.Helpers
     {
 
 
-        public static bool IsMouseButtonPressed(int buttonNumber)
+        public static bool IsMouseButtonPressed(int buttonNumber, MouseState prevMouseState)
         {
             MouseState mouseState = Mouse.GetState();
             if (buttonNumber == 1)
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
                 {
                     return true;
                 }
@@ -50,11 +50,11 @@ namespace ArcLight__The_Fighter.Helpers
         public static bool MouseButtonClick(Rectangle button)
         {
             MouseState mouseState = Mouse.GetState();
-            
+            MouseState oldState = Game1.defaultMouseState;
             int x = mouseState.Position.X;
             int y = mouseState.Position.Y;
             Rectangle mousePlace = new Rectangle(x, y, 10, 10);
-            if (mousePlace.Intersects(button) && mouseState.LeftButton == ButtonState.Pressed)
+            if (mousePlace.Intersects(button) && mouseState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
             {
                 return true;
             }
