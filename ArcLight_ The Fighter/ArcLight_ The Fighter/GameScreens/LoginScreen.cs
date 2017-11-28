@@ -17,10 +17,12 @@ namespace ArcLight__The_Fighter.GameScreens
 {
     class LoginScreen : GameScreen
     {
-        NetClient client;
+        NetClient client = Game1.client;
 
         ContentManager content;
         GameScreenManager screenManager;
+        protected SpriteBatch spriteBatch;
+
 
         public static bool ShowError_ = false;
 
@@ -57,19 +59,12 @@ namespace ArcLight__The_Fighter.GameScreens
         public LoginScreen()
         {
             KeyboardInput.Initialize(Game1.game, 500f, 20);
-
-            NetPeerConfiguration config = new NetPeerConfiguration("Login");
-            config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
-
-            client = new NetClient(config);
-            client.Start();
-
-            client.Connect("localhost", 18052);
         }
 
         public override void LoadContent()
         {
             screenManager = new GameScreenManager(Game1.game);
+            spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
             content = new ContentManager(screenManager.Game.Content.ServiceProvider, "Content" );
 
             TextBoxPozadi = content.Load<Texture2D>("textBox");
@@ -100,7 +95,7 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public override void UnloadContent()
         {
-
+            content.Unload();
         }
 
 
@@ -134,9 +129,9 @@ namespace ArcLight__The_Fighter.GameScreens
                 client.SendMessage(Password, NetDeliveryMethod.ReliableOrdered);
                 client.SendMessage(Username, NetDeliveryMethod.ReliableOrdered);
                 screenManager.AddScreen(new LoadingScreen(), null);
-                screenManager.RemoveScreen(new LoginScreen());
+                screenManager.RemoveScreen(this);
                 ButtonClick.Play();
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
 
             }
 
@@ -193,7 +188,6 @@ namespace ArcLight__The_Fighter.GameScreens
             ButtonExitPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (buttonExit.Width / 4) + 742, 544, buttonExit.Width / 2, buttonExit.Height / 2);
             LogoPos = new Rectangle((int)(Game1.graphics.PreferredBackBufferWidth / 2) - (Logo.Width / 2), 100, Logo.Width, Logo.Height);
 
-            SpriteBatch spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
             Viewport viewport = screenManager.GraphicsDevice.Viewport;
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 

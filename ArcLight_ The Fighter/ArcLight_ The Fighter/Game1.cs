@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using ArcLight__The_Fighter.Helpers;
 using Microsoft.Xna.Framework.Content;
+using Lidgren.Network;
 
 namespace ArcLight__The_Fighter
 {
@@ -19,6 +20,8 @@ namespace ArcLight__The_Fighter
         private GameScreenManager screenManager;
         public static MouseState defaultMouseState;
 
+        public static NetClient client;
+
         public static Game game;
         public Game1()
         {
@@ -30,22 +33,32 @@ namespace ArcLight__The_Fighter
             this.IsMouseVisible = true;
             graphicsDevice = this.GraphicsDevice;
             game = this;
+
+            ConnectToServer();
+
            // spriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = "Content";
             defaultMouseState = Mouse.GetState();
             screenManager = new GameScreenManager(this);
             Components.Add(screenManager);
-           // screenManager.AddScreen(new MainMenu(), null);
             screenManager.AddScreen(new LoginScreen(), null);
-           //   screenManager.AddScreen(new TestScreen(), null);
 
 
 
         }
 
-        
 
 
+        public void ConnectToServer()
+        {
+            NetPeerConfiguration config = new NetPeerConfiguration("Login");
+            config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+
+            client = new NetClient(config);
+            client.Start();
+
+            client.Connect("localhost", 18052);
+        }
        
         protected override void Draw(GameTime gameTime)
         {

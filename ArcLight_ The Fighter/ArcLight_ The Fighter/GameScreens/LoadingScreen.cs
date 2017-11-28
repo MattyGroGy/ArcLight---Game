@@ -17,13 +17,12 @@ namespace ArcLight__The_Fighter.GameScreens
 {
     class LoadingScreen : GameScreen
     {
-        NetClient client;
-
+        NetClient client = Game1.client;
         ContentManager content;
         GameScreenManager screenManager;
 
         private SpriteFont MainMenuFont;
-
+        protected SpriteBatch spriteBatch;
         private Texture2D Pozadi;
 
         private Song song;
@@ -39,7 +38,7 @@ namespace ArcLight__The_Fighter.GameScreens
         {
             screenManager = new GameScreenManager(Game1.game);
             content = new ContentManager(screenManager.Game.Content.ServiceProvider, "Content");
-
+            spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
             song = content.Load<Song>("Sounds/Music/MainMenu");
             Pozadi = content.Load<Texture2D>("MenuScreen/Pozadi");
 
@@ -60,7 +59,7 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public override void UnloadContent()
         {
-
+            content.Unload();
         }
 
 
@@ -78,13 +77,13 @@ namespace ArcLight__The_Fighter.GameScreens
                         string Msg = inc.ReadString();
                         if (Msg == "x")
                         {
-                            screenManager.AddScreen(new LoginScreen(), null);
                             LoginScreen.ShowError("Username and password does not match!");
                             screenManager.RemoveScreen(new LoadingScreen());
                         }
                         else
                         {
-                            
+                            screenManager.RemoveScreen(new LoginScreen());
+                            screenManager.AddScreen(new MainMenu(), null);
                         }
                         ServerMSG = ("Server on andress " + inc.SenderEndPoint + " responded with token: " + inc.ReadString());
                         Console.WriteLine(ServerMSG);
@@ -93,22 +92,20 @@ namespace ArcLight__The_Fighter.GameScreens
                 }
 
             }
-            
+            Time++;
             Console.WriteLine(Time);
-            /*  if (Time == TimeLimit)
-              {
+            if (Time == TimeLimit)
+            {
                   Console.WriteLine("Connection Timeout");
                   screenManager.AddScreen(new LoginScreen(), null);
                   screenManager.RemoveScreen(this);
-             }
-             */
+            }
+             
         }
 
         public override void Draw(GameTime gameTime)
         {
 
-
-            SpriteBatch spriteBatch = new SpriteBatch(screenManager.GraphicsDevice);
             Viewport viewport = screenManager.GraphicsDevice.Viewport;
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 

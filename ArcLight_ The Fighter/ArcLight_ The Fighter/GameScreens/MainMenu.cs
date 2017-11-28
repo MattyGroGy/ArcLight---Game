@@ -73,7 +73,7 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public override void UnloadContent()
         {
-
+            content.Unload();
         }
 
 
