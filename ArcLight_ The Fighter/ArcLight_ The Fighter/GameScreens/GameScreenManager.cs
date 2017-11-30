@@ -73,10 +73,17 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public override void Update(GameTime gameTime)
         {
+            int x = 0;
             foreach (GameScreen screen in screens)
             {
                 screen.Update(gameTime);
-                //   Console.WriteLine("Content Updated for: " + screen);
+                x++;
+                if (x >= 1000)
+                {
+                    Console.WriteLine("This Screen Exist:" + screen);
+                    x = 0;
+                }
+                    //   Console.WriteLine("Content Updated for: " + screen);
             }
         }
 
@@ -85,7 +92,7 @@ namespace ArcLight__The_Fighter.GameScreens
             foreach (GameScreen screen in screens)
             {
                 screen.Draw(gameTime);
-                Console.WriteLine(gameTime + ": Drawed: " + screen);
+              //  Console.WriteLine(gameTime + ": Drawed: " + screen);
                 //   Console.WriteLine("Content Drawed for: " + screen);
             }
         }
@@ -110,11 +117,11 @@ namespace ArcLight__The_Fighter.GameScreens
             
         }
 
-        public void ChangeScreen(GameScreen screen, GameScreen oldscreen)
+        public void ChangeScreen(GameScreen screen, GameScreen oldscreen,GameScreenManager screenManager)
         {
-            oldscreen.UnloadContent();
+            screenManager.UnloadContent();
             screens.Add(screen);
-            screen.LoadContent();
+            screenManager.LoadContent();
             screens.Remove(oldscreen);
         }
     }

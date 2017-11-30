@@ -128,7 +128,7 @@ namespace ArcLight__The_Fighter.GameScreens
                 Username.Write(UsernameInput.Text.String);
                 client.SendMessage(Password, NetDeliveryMethod.ReliableOrdered);
                 client.SendMessage(Username, NetDeliveryMethod.ReliableOrdered);
-                screenManager.ChangeScreen(new LoadingScreen(), this);
+                screenManager.ChangeScreen(new LoadingScreen(), this,screenManager);
                 ButtonClick.Play();
                 Thread.Sleep(1000);
 
