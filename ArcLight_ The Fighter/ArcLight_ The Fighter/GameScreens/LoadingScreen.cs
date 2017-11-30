@@ -67,7 +67,7 @@ namespace ArcLight__The_Fighter.GameScreens
         {
 
             NetIncomingMessage inc;
-            while ((inc = client.ReadMessage()) != null)
+         /*   while ((inc = client.ReadMessage()) != null)
             {
 
                 switch (inc.MessageType)
@@ -100,7 +100,7 @@ namespace ArcLight__The_Fighter.GameScreens
                   screenManager.AddScreen(new LoginScreen(), null);
                   screenManager.RemoveScreen(this);
             }
-             
+        */     
         }
 
         public override void Draw(GameTime gameTime)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoGame_Textbox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public virtual void UnloadContent()
         {
+            
             Console.WriteLine("Content UnLoaded!");
         }
 
@@ -49,9 +51,9 @@ namespace ArcLight__The_Fighter.GameScreens
 
         public void ExitScreen()
         {
-            
 
-                ScreenManager.RemoveScreen(this);
+                screenManager = new GameScreenManager(Game1.game);
+                screenManager.RemoveScreen(this);
         }
     }
 }
